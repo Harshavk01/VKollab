@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers | VKOLLAB Technologies</title>
+<meta name="description" content="VKOLLAB Technologies is an equal opportunity company offering the best working conditions, latest infrastructure, and best-in-class facilities. Explore current job openings.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" style="color:#ffb27a;">Careers</span>
+      <h1>Build Your Career With VKOLLAB Technologies</h1>
+      <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><span class="current">Careers</span></div>
+    </div>
+  </section>
+
+  <!-- WHY WORK WITH US -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">VKollab SAP Careers Overview</span>
+        <h2>Culture of Respect, Collaboration, and Social Impact</h2>
+        <p>VKOLLAB Technologies is an equal opportunity company. We offer the best working conditions, the latest infrastructure, and best-in-class facilities. Our basic focus is on giving each person a consistent career path and satisfying work conditions. Training is an integral part of VKOLLAB's working, as technology updates are quite frequent, and our personnel need to rise to all clients' demands for innovation and efficient operations.</p>
+      </div>
+      <div class="grid-4">
+        <div class="value-card"><span class="icon">&#128188;</span><h3>Career opportunities on your terms</h3><p>Flexible growth paths tailored to your strengths and career aspirations.</p></div>
+        <div class="value-card"><span class="icon">&#127775;</span><h3>Enriching job experiences</h3><p>Work on meaningful, high-impact SAP projects across diverse industries.</p></div>
+        <div class="value-card"><span class="icon">&#129309;</span><h3>An employer you can trust</h3><p>Transparent, ethical, and people-first workplace practices.</p></div>
+        <div class="value-card"><span class="icon">&#127760;</span><h3>We're fostering a diverse culture</h3><p>An inclusive environment that values every voice and background.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CULTURE -->
+  <section class="section bg-light">
+    <div class="container why-grid">
+      <div>
+        <span class="eyebrow">Our Culture</span>
+        <h2>Here is your perfect Career Solution</h2>
+        <p>At VKollab, you'll supercharge your potential, discover your career, and find your spark. All at a place that knows helping our clients stay on top starts by putting our people first.</p>
+        <div class="feature-list">
+          <div class="feature-item"><span class="dot">&#9878;</span> Align Policies &amp; Operations</div>
+          <div class="feature-item"><span class="dot">&#129309;</span> Community &amp; People Impact</div>
+        </div>
+        <p>Call us anytime: <strong>+1 9083001548</strong></p>
+      </div>
+      <div class="why-media" data-animate="slide-left">
+        <div class="frame">
+          <svg viewBox="0 0 500 380" width="100%" role="img" aria-label="Team culture illustration">
+            <rect width="500" height="380" fill="#eef3fa"/>
+            <circle cx="180" cy="150" r="55" fill="#1a3c6e"/>
+            <circle cx="300" cy="200" r="55" fill="#ff7a1a"/>
+            <circle cx="240" cy="270" r="40" fill="#2f8fd6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN POSITIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Current Openings</span>
+        <h2>Current Job Openings</h2>
+        <p>At present, we are looking for personnel with experience in the following SAP modules.</p>
+      </div>
+      <div class="grid-3" id="jobListings"></div>
+    </div>
+  </section>
+
+  <!-- CONSULTATION CTA -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="consult-strip" data-animate="fade-up">
+        <span class="eyebrow">Get Started</span>
+        <h2>Get a Free Consultancy<br>Right Now Here!</h2>
+        <p>Don't see the right role? Send us your resume and we'll reach out when a matching opportunity opens up.</p>
+        <button class="btn btn-primary apply-now-btn" data-job="General Application">Make Appointment</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- APPLICATION MODAL -->
+<div class="modal-overlay" id="applicationModal">
+  <div class="modal-box">
+    <button class="modal-close" aria-label="Close application form">&times;</button>
+    <h3>Apply Now</h3>
+    <p class="modal-sub">Applying for: General Application</p>
+    <form id="applicationForm" novalidate>
+      <input type="hidden" id="appJobTitle" name="jobTitle" value="">
+      <div class="form-group">
+        <label for="appName">Name</label>
+        <input type="text" id="appName" name="name" required placeholder="Your full name">
+        <span class="form-error">Please enter your name.</span>
+      </div>
+      <div class="form-group">
+        <label for="appEmail">Email</label>
+        <input type="email" id="appEmail" name="email" data-validate="email" required placeholder="you@example.com">
+        <span class="form-error">Please enter a valid email address.</span>
+      </div>
+      <div class="form-group">
+        <label for="appPhone">Phone</label>
+        <input type="tel" id="appPhone" name="phone" data-validate="phone" required placeholder="+1 908 300 1548">
+        <span class="form-error">Please enter a valid phone number.</span>
+      </div>
+      <div class="form-group">
+        <label for="appResume">Resume (file name)</label>
+        <input type="file" id="appResume" name="resume" required accept=".pdf,.doc,.docx">
+        <span class="form-error">Please attach your resume.</span>
+      </div>
+      <div class="form-group">
+        <label for="appMessage">Message</label>
+        <textarea id="appMessage" name="message" placeholder="Tell us why you're a great fit..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Submit Application</button>
+      <div class="form-success">Thank you for applying! Our HR team will review your application and get back to you soon.</div>
+    </form>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/navigation.js"></script>
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/forms.js"></script>
+<script>
+  // Job listings data — structured for easy replacement with live data later.
+  const jobs = [
+    { title: "HANA Architect", location: "Parsippany, NJ / Remote", type: "Full Time" },
+    { title: "SAP Solution Manager", location: "Hyderabad, Telangana", type: "Full Time" },
+    { title: "Lead SAP Developer", location: "Guntur, Andhra Pradesh", type: "Full Time" },
+    { title: "SAP Advanced Track and Trace Consultant", location: "Vijayawada, Andhra Pradesh", type: "Full Time" },
+    { title: "SAP AI & Analytics Associate", location: "Guntur, Andhra Pradesh", type: "Full Time" },
+    { title: "SAP Fiori/UI5 Developer", location: "Remote", type: "Full Time" }
+  ];
+
+  const jobListings = document.getElementById("jobListings");
+  function renderJobs() {
+    jobListings.innerHTML = jobs.map(job => `
+      <div class="job-card">
+        <div class="job-tags"><span class="tag">${job.type}</span></div>
+        <h3>${job.title}</h3>
+        <div class="job-meta"><span>&#128205; ${job.location}</span></div>
+        <p>Join our SAP delivery team and work on enterprise-grade transformation projects for clients across industries.</p>
+        <button class="btn btn-secondary apply-now-btn" data-job="${job.title}">Apply Now</button>
+      </div>
+    `).join("");
+  }
+  renderJobs();
+</script>
+</body>
+</html>
