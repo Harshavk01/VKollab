@@ -1,0 +1,179 @@
+/* =========================================================
+   VKOLLAB TECHNOLOGIES — MAIN.JS
+   Scroll-to-top, smooth scroll, industry tabs, FAQ accordion,
+   lazy loading fallback, misc UI glue.
+   ========================================================= */
+
+(function () {
+  "use strict";
+
+  /* ---------------- Scroll to top button ---------------- */
+  function initScrollTop() {
+    var btn = document.createElement("button");
+    btn.className = "scroll-top";
+    btn.setAttribute("aria-label", "Scroll to top");
+    btn.innerHTML = "&#8593;";
+    document.body.appendChild(btn);
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 420) btn.classList.add("show");
+      else btn.classList.remove("show");
+    });
+    btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ---------------- Smooth scroll for in-page anchors ---------------- */
+  function initSmoothScroll() {
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var id = link.getAttribute("href");
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  /* ---------------- FAQ Accordion ---------------- */
+  function initFaqAccordion() {
+    var items = document.querySelectorAll(".faq-item");
+    if (!items.length) return;
+    items.forEach(function (item) {
+      var question = item.querySelector(".faq-question");
+      question.addEventListener("click", function () {
+        var isOpen = item.classList.contains("open");
+        items.forEach(function (i) { i.classList.remove("open"); });
+        if (!isOpen) item.classList.add("open");
+      });
+    });
+  }
+
+  /* ---------------- Industry Tabs (Home page) ---------------- */
+  var INDUSTRIES = [
+    {
+      num: "01", name: "Automotive",
+      title: "Driving Innovation in Automotive Manufacturing",
+      desc: "We help automotive manufacturers and suppliers streamline production, manage complex supply chains, and accelerate digital transformation with SAP.",
+      benefits: ["Real-time production visibility", "Supplier & dealer network integration", "Quality and compliance tracking"]
+    },
+    {
+      num: "02", name: "Manufacturing",
+      title: "Smarter, Connected Manufacturing Operations",
+      desc: "Our SAP solutions optimize shop-floor operations, planning, and scheduling to help manufacturers reduce costs and improve throughput.",
+      benefits: ["Production planning & detailed scheduling", "Inventory and capacity optimization", "End-to-end process integration"]
+    },
+    {
+      num: "03", name: "Logistics & Transport",
+      title: "End-to-End Visibility Across the Supply Chain",
+      desc: "We enable logistics and transportation companies to gain real-time visibility, optimize routes, and improve delivery performance with SAP IBP and Track & Trace.",
+      benefits: ["Real-time shipment tracking", "Demand & supply planning", "Regulatory serialization compliance"]
+    },
+    {
+      num: "04", name: "Healthcare",
+      title: "Secure, Compliant Healthcare Operations",
+      desc: "We support healthcare and life sciences organizations with compliance-driven SAP solutions including ComplianceWire and Advanced Track & Trace.",
+      benefits: ["Regulatory training & compliance", "Drug serialization & reporting", "Patient safety-focused traceability"]
+    },
+    {
+      num: "05", name: "Banking",
+      title: "Resilient Digital Foundations for Banking",
+      desc: "Our consultants help banking and financial institutions modernize core systems, manage risk, and improve customer-facing digital experiences.",
+      benefits: ["Secure application management", "Workforce & HR transformation", "Scalable cloud migration"]
+    },
+    {
+      num: "06", name: "Real Estate & Infrastructure",
+      title: "Building the Future of Infrastructure & Real Estate",
+      desc: "We help real estate and construction firms manage complex projects, assets, and workforce operations with tailored SAP solutions.",
+      benefits: ["Project & asset management", "Workforce planning with SuccessFactors", "Integrated financial reporting"]
+    }
+  ];
+
+  function initIndustryTabs() {
+    var wrap = document.getElementById("industriesWrap");
+    if (!wrap) return;
+    var tabsEl = document.getElementById("industryTabs");
+    var panelEl = document.getElementById("industryPanel");
+
+    function renderTabs(activeIdx) {
+      tabsEl.innerHTML = INDUSTRIES.map(function (ind, idx) {
+        return '<button class="industry-tab' + (idx === activeIdx ? " active" : "") + '" data-idx="' + idx + '" aria-selected="' + (idx === activeIdx) + '">' +
+          '<span class="num">' + ind.num + "</span><span>" + ind.name + "</span></button>";
+      }).join("");
+    }
+
+    function renderPanel(idx) {
+      var ind = INDUSTRIES[idx];
+      panelEl.innerHTML =
+        '<div class="panel-media media">' +
+        '  <svg viewBox="0 0 400 260" width="100%" role="img" aria-label="' + ind.name + ' illustration">' +
+        '    <rect width="400" height="260" fill="#eef3fa"/>' +
+        '    <circle cx="90" cy="130" r="60" fill="#1a3c6e" opacity="0.15"/>' +
+        '    <rect x="170" y="60" width="190" height="140" rx="14" fill="#1a3c6e" opacity="0.9"/>' +
+        '    <rect x="190" y="84" width="150" height="14" rx="7" fill="#ff7a1a"/>' +
+        '    <rect x="190" y="112" width="110" height="10" rx="5" fill="#ffffff" opacity="0.7"/>' +
+        '    <rect x="190" y="132" width="130" height="10" rx="5" fill="#ffffff" opacity="0.5"/>' +
+        '    <rect x="190" y="152" width="90" height="10" rx="5" fill="#ffffff" opacity="0.5"/>' +
+        "  </svg>" +
+        "</div>" +
+        "<div>" +
+        "  <h3>" + ind.title + "</h3>" +
+        "  <p>" + ind.desc + "</p>" +
+        '  <ul class="benefits">' + ind.benefits.map(function (b) { return "<li>" + b + "</li>"; }).join("") + "</ul>" +
+        "</div>";
+      panelEl.classList.remove("fade-swap");
+      void panelEl.offsetWidth;
+      panelEl.classList.add("fade-swap");
+    }
+
+    tabsEl.addEventListener("click", function (e) {
+      var btn = e.target.closest(".industry-tab");
+      if (!btn) return;
+      var idx = parseInt(btn.getAttribute("data-idx"), 10);
+      renderTabs(idx);
+      renderPanel(idx);
+    });
+
+    renderTabs(0);
+    renderPanel(0);
+  }
+
+  /* ---------------- Lazy loading fallback for images ---------------- */
+  function initLazyLoad() {
+    var imgs = document.querySelectorAll("img[data-src]");
+    if (!imgs.length) return;
+    if ("IntersectionObserver" in window) {
+      var obs = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            img.src = img.getAttribute("data-src");
+            img.removeAttribute("data-src");
+            observer.unobserve(img);
+          }
+        });
+      }, { rootMargin: "200px" });
+      imgs.forEach(function (img) { obs.observe(img); });
+    } else {
+      imgs.forEach(function (img) { img.src = img.getAttribute("data-src"); });
+    }
+  }
+
+  function boot() {
+    initScrollTop();
+    initSmoothScroll();
+    initFaqAccordion();
+    initIndustryTabs();
+    initLazyLoad();
+  }
+
+  if (document.getElementById("site-header")) {
+    document.addEventListener("layoutReady", boot);
+  } else {
+    document.addEventListener("DOMContentLoaded", boot);
+  }
+})();
