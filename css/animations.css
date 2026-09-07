@@ -1,0 +1,70 @@
+/* =========================================================
+   VKOLLAB TECHNOLOGIES — ANIMATIONS STYLESHEET
+   ========================================================= */
+
+/* Base reveal state: hidden until 'in-view' class is added by IntersectionObserver */
+[data-animate] {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+[data-animate].in-view { opacity: 1; }
+
+[data-animate="fade-up"] { transform: translateY(34px); }
+[data-animate="fade-up"].in-view { transform: translateY(0); }
+
+[data-animate="fade-in"] { transform: translateY(0); }
+
+[data-animate="slide-up"] { transform: translateY(60px); }
+[data-animate="slide-up"].in-view { transform: translateY(0); }
+
+[data-animate="slide-left"] { transform: translateX(60px); }
+[data-animate="slide-left"].in-view { transform: translateX(0); }
+
+[data-animate="slide-right"] { transform: translateX(-60px); }
+[data-animate="slide-right"].in-view { transform: translateX(0); }
+
+[data-animate="scale-in"] { transform: scale(0.88); }
+[data-animate="scale-in"].in-view { transform: scale(1); }
+
+/* stagger helper via inline style delay set by JS using --d */
+[data-animate] { transition-delay: var(--d, 0ms); }
+
+/* Hover elevation utility */
+.hover-elevate { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.hover-elevate:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+/* Spinner for form loading state */
+.spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.4); border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Fade for industry panel content swap */
+.fade-swap { animation: fadeSwap 0.5s ease; }
+@keyframes fadeSwap {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pulse for CTA emphasis */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,122,26,0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(255,122,26,0); }
+}
+.pulse { animation: pulseGlow 2.4s ease-in-out infinite; }
+
+/* Marquee-esque gentle float for hero media */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.floaty { animation: floaty 4.5s ease-in-out infinite; }
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate], .hover-elevate, .floaty, .pulse { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+}
